@@ -1,0 +1,33 @@
+{
+  "name": "async-json-request",
+  "version": "1.0.0",
+  "description": "Base request methods based on promises for async/await ussage",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "./node_modules/babel-cli/bin/babel.js ./src --out-dir ./dist --copy-files",
+    "prepublish": "npm run build",
+    "test": "mocha --require babel-core/register 'test/index.js'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Scorpio1337/node-async-json-request.git"
+  },
+  "author": "Antonin Bouchal <me@justme.cz>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Scorpio1337/node-async-json-request/issues"
+  },
+  "homepage": "https://github.com/Scorpio1337/node-async-json-request#readme",
+  "dependencies": {
+    "request": "^2.83.0"
+  },
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "express": "^4.16.2",
+    "mocha": "~2.2.1"
+  }
+}
