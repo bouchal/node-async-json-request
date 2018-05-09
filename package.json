@@ -1,6 +1,6 @@
 {
   "name": "async-json-request",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Base request methods based on promises for async/await ussage",
   "main": "./dist/index.js",
   "scripts": {
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Scorpio1337/node-async-json-request.git"
+    "url": "git+https://github.com/bouchal/node-async-json-request.git"
   },
   "author": "Antonin Bouchal <me@justme.cz>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Scorpio1337/node-async-json-request/issues"
+    "url": "https://github.com/bouchal/node-async-json-request/issues"
   },
-  "homepage": "https://github.com/Scorpio1337/node-async-json-request#readme",
+  "homepage": "https://github.com/bouchal/node-async-json-request#readme",
   "dependencies": {
     "request": "^2.83.0"
   },
