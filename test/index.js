@@ -42,59 +42,53 @@ describe('Request', function () {
 	});
 
 	describe('Usage methods', () => {
-		it('should work with async/await', async (done) => {
+		it('should work with async/await', async () => {
 			const result = await testApi.get(TEST_GET_JSON_URI);
 
 			if (!result.success) {
-				return done('Request return wrong data');
+				throw Error('Request return wrong data');
 			}
-
-			done();
 		});
 
-		it('should work with promise', async (done) => {
+		it('should work with promise', async () => {
 			testApi.get(TEST_GET_JSON_URI).then((result) => {
 				if (!result.success) {
-					return done('Request return wrong data');
+					throw Error('Request return wrong data');
 				}
-
-				done();
-			}, done);
+			}, (err) => {
+				if (err) {
+					throw Error(err);
+				}
+			});
 		});
 	});
 
 
 	describe('Other request methods', () => {
-		it('should work with POST', async (done) => {
+		it('should work with POST', async () => {
 			const result = await testApi.post(TEST_POST_JSON_URI, TEST_POST_DATA);
 
 			if (!result.receivedData.testData == TEST_POST_DATA.testData) {
-				return done('Request return wrong data');
+				throw Error('Request return wrong data');
 			}
-
-			done();
 		});
 
-		it('should work with PUT', async (done) => {
+		it('should work with PUT', async () => {
 			const result = await testApi.put(TEST_PUT_JSON_URI, TEST_PUT_DATA);
 
 			if (!result.receivedData.testPutData == TEST_PUT_DATA.testPutData) {
-				return done('Request return wrong data');
+				throw Error('Request return wrong data');
 			}
-
-			done();
 		});
 	});
 
 	describe('Working with options', () => {
-		it('should send x-token in headers', async (done) => {
+		it('should send x-token in headers', async () => {
 			const result = await testOptionsApi.get(TEST_GET_CUSTOM_HEADERS_URI);
 
 			if (!result.headers['x-token'] == TEST_TOKEN) {
-				return done('Request return wrong headers');
+				throw Error('Request return wrong headers');
 			}
-
-			done();
 		});
 	})
 });
