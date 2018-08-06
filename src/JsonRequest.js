@@ -14,7 +14,7 @@ export default class JsonRequest {
 
         return new Proxy(this, {
             get: function (target, name, receiver) {
-                if (allowedMethods.indexOf(name.toUpperCase()) === -1) {
+                if (allowedMethods.indexOf(name.toString().toUpperCase()) === -1) {
                     return undefined;
                 }
 
