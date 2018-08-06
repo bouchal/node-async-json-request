@@ -1,6 +1,6 @@
 {
   "name": "async-json-request",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Base request methods based on promises for async/await ussage",
   "main": "./dist/index.js",
   "scripts": {
