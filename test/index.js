@@ -66,7 +66,7 @@ describe('Request', function () {
 
 	describe('Other request methods', () => {
 		it('should work with POST', async () => {
-			const result = await testApi.post(TEST_POST_JSON_URI, TEST_POST_DATA);
+			const result = await testApi.post(TEST_POST_JSON_URI, null, TEST_POST_DATA);
 
 			if (!result.receivedData.testData == TEST_POST_DATA.testData) {
 				throw Error('Request return wrong data');
