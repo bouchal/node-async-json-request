@@ -1,5 +1,7 @@
 import request from "request";
 
+const allowedMethods = [ 'GET', 'HEAD', 'POST', 'PUT', 'DELETE', 'CONNECT', 'OPTIONS', 'TRACE', 'PATCH' ];
+
 export default class JsonRequest {
     /**
      *
@@ -12,6 +14,10 @@ export default class JsonRequest {
 
         return new Proxy(this, {
             get: function (target, name, receiver) {
+                if (allowedMethods.indexOf(name.toUpperCase()) === -1) {
+                    return undefined;
+                }
+
                 return target._getMethod(name);
             }
         });

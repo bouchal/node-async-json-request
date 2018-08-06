@@ -80,6 +80,19 @@ describe('Request', function () {
 				throw Error('Request return wrong data');
 			}
 		});
+
+		it('should don\'t work with non-standard functions', async() => {
+			try {
+				testApi.someRandomFunction(TEST_GET_JSON_URI);
+                testApi.then(TEST_GET_JSON_URI);
+            } catch (e) {
+				if (e.message.includes('is not a function')) {
+					return;
+				}
+			}
+
+			throw new Error('Request should fail on "is not a function" error.')
+		});
 	});
 
 	describe('Working with options', () => {
