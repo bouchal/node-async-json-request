@@ -1,6 +1,8 @@
 import express from 'express';
-
+import bodyParser from 'body-parser'
 const app = express();
+
+app.use(bodyParser.json());
 
 app.get('/get', (req, res) => {
 	res.json({
@@ -10,13 +12,13 @@ app.get('/get', (req, res) => {
 
 app.post('/post', (req, res) => {
 	res.json({
-		receivedData: req.query
+		receivedData: req.body
 	})
 });
 
 app.put('/put', (req, res) => {
 	res.json({
-		receivedData: req.query
+		receivedData: req.body
 	})
 });
 

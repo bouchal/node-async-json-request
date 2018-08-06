@@ -28,9 +28,10 @@ printData();
 
 ### Methods
 
-- __.get(URI, DATA)__
-- __.post(URI, DATA)__
-- __.put(URI, DATA)__
+- __.get(URI, PARAMETERS)__
+- __.post(URI, PARAMETERS, BODY)__
+- __.put(URI, PARAMETERS, BODY)__
+- ...and every other possible methods
 
 ### Custom default request options
 

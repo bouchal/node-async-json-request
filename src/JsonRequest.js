@@ -1,75 +1,69 @@
 import request from "request";
 
 export default class JsonRequest {
-	/**
-	 *
-	 * @param apiBasePath
-	 * @param defaultRequestOptions
-	 */
-	constructor(apiBasePath, defaultRequestOptions = {})
-	{
-		this.apiBasePath = apiBasePath;
-		this._defaultRequestOptions = defaultRequestOptions;
-	}
+    /**
+     *
+     * @param apiBasePath
+     * @param defaultRequestOptions
+     */
+    constructor(apiBasePath, defaultRequestOptions = {}) {
+        this.apiBasePath = apiBasePath;
+        this._defaultRequestOptions = defaultRequestOptions;
 
-	/**
-	 *
-	 * @param method
-	 * @param path
-	 * @param data
-	 * @param getData
-	 * @return {Promise}
-	 * @private
-	 */
-	_runRequest(method, path, data = null, getData = null)
-	{
-		const url = this.apiBasePath + path;
+        return new Proxy(this, {
+            get: function (target, name, receiver) {
+                return target._getMethod(name);
+            }
+        });
+    }
 
-		var options = {
-			...this._defaultRequestOptions,
-			url,
-			method
-		};
 
-		options.json = true;
+    _getMethod(method) {
+        const self = this;
 
-		if(!('headers' in options)) {
-			options.headers = {};
-		}
+        return function () {
+            return self._runRequest(method.toUpperCase(), ...arguments);
+        }
+    }
 
-		options.headers['content-type'] = 'application/json';
 
-		if(data) {
-			options.body = data;
-		} else if(getData) {
-			options.qs = getData;
-		}
+    /**
+     *
+     * @param method
+     * @param path
+     * @param body
+     * @param parameters
+     * @return {Promise}
+     * @private
+     */
+    _runRequest(method, path, parameters, body) {
+        const url = this.apiBasePath + path;
 
-		return new Promise((resolve, reject) =>
-		{
-			request(options, (err, res, data) =>
-			{
-				if(err) {
-					return reject(err)
-				}
+        const options = {
+            ...this._defaultRequestOptions,
+            url,
+            method
+        };
 
-				resolve(data)
-			});
-		});
-	}
+        options.json = true;
 
-	get(path, data = null)
-	{
-		return this._runRequest('GET', path, null, data);
-	}
+        if (!('headers' in options)) {
+            options.headers = {};
+        }
 
-	put(path, data)
-	{
-		return this._runRequest('PUT', path, data, null)
-	}
+        options.headers['content-type'] = 'application/json';
 
-	post(path, data = null)
-	{
-		return this._runRequest('POST', path, data, null);
-	}
+        if (body) options.body = body;
+        if (parameters) options.qs = parameters;
+
+        return new Promise((resolve, reject) => {
+            request(options, (err, res, data) => {
+                if (err) {
+                    return reject(err)
+                }
+
+                resolve(data)
+            });
+        });
+    }
 }
