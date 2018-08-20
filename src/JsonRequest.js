@@ -7,10 +7,12 @@ export default class JsonRequest {
      *
      * @param apiBasePath
      * @param defaultRequestOptions
+     * @param fullResponse
      */
-    constructor(apiBasePath, defaultRequestOptions = {}) {
-        this.apiBasePath = apiBasePath;
+    constructor(apiBasePath, defaultRequestOptions = {}, fullResponse = false) {
+        this._apiBasePath = apiBasePath;
         this._defaultRequestOptions = defaultRequestOptions;
+        this._fullRepsonse = fullResponse;
 
         return new Proxy(this, {
             get: function (target, name, receiver) {
@@ -43,7 +45,7 @@ export default class JsonRequest {
      * @private
      */
     _runRequest(method, path, parameters, body) {
-        const url = this.apiBasePath + path;
+        const url = this._apiBasePath + path;
 
         const options = {
             ...this._defaultRequestOptions,
@@ -68,7 +70,7 @@ export default class JsonRequest {
                     return reject(err)
                 }
 
-                resolve(data)
+                resolve(this._fullRepsonse ? res : data);
             });
         });
     }

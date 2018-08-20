@@ -1,6 +1,6 @@
 {
   "name": "async-json-request",
-  "version": "2.0.3",
+  "version": "2.1.0",
   "description": "Base request methods based on promises for async/await ussage",
   "main": "./dist/index.js",
   "scripts": {
@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/bouchal/node-async-json-request#readme",
   "dependencies": {
-    "request": "^2.83.0"
+    "request": "^2.88.0"
   },
   "devDependencies": {
     "babel": "^6.23.0",

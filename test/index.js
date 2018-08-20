@@ -19,6 +19,7 @@ const TEST_PUT_DATA = {
 const TEST_TOKEN = 'testToken';
 
 const testApi = new JsonRequest(TEST_JSON_BASE_URL + ':' + TEST_SERVER_PORT);
+const testFullResponseApi = new JsonRequest(TEST_JSON_BASE_URL + ':' + TEST_SERVER_PORT, {}, true);
 const testOptionsApi = new JsonRequest(TEST_JSON_BASE_URL + ':' + TEST_SERVER_PORT, {
 	headers: {
 		'x-token': TEST_TOKEN
@@ -61,6 +62,23 @@ describe('Request', function () {
 				}
 			});
 		});
+
+		it('should return full response', async () => {
+            testFullResponseApi.get(TEST_GET_JSON_URI).then((res) => {
+                if (res.statusCode !== 200) {
+                    throw Error('Request return wrong status code');
+                }
+
+                if (!res.body.success) {
+                    throw Error('Request return wrong data');
+                }
+
+            }, (err) => {
+                if (err) {
+                    throw Error(err);
+                }
+            });
+		})
 	});
 
 
