@@ -44,3 +44,23 @@ const apiRequest = new JsonRequest('https://jsonplaceholder.typicode.com', {
 	}
 });
 ```
+
+### Returning full response object
+
+Sometimes you need return full response object for check status code or returned headers.
+
+For it you can set third parameter of JsonRequest to true.
+
+```javascript
+import JsonRequest from 'async-json-request';
+
+const apiRequest = new JsonRequest('https://jsonplaceholder.typicode.com', {}, true);
+
+const printStatusCode = async () => {
+	const result = await apiRequest.get('/posts/1');
+	
+	console.log(result.statusCode, result.body);
+};
+
+printStatusCode();
+```
