@@ -1,3 +1,5 @@
 .idea
+.babel
+.travis.yml
 src
 test
