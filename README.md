@@ -45,6 +45,28 @@ const apiRequest = new JsonRequest('https://jsonplaceholder.typicode.com', {
 });
 ```
 
+### Custom additional options for specific request
+
+```javascript
+import JsonRequest from 'async-json-request';
+
+const apiRequest = new JsonRequest('https://jsonplaceholder.typicode.com', {
+	headers: {
+		'x-token': 'TOKEN'
+	}
+});
+
+const result = apiRequest
+    .options({
+        headers: {
+            'authorization': 'Bearer XYZ'
+        }
+    })
+    .get('/posts/1');
+```
+
+All options are deep merged together.
+
 ### Returning full response object
 
 Sometimes you need return full response object for check status code or returned headers.
