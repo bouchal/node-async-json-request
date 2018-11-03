@@ -60,6 +60,7 @@ export default class JsonRequest {
     /**
      *
      * @param method
+     * @param reqOptions
      * @param path
      * @param body
      * @param parameters

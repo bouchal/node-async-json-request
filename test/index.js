@@ -113,6 +113,18 @@ describe('Request', function () {
         });
     });
 
+    describe('Error handling', () => {
+        it('should reject promise when request end with error', (done) => {
+            const notExistedApiRequest = new JsonRequest('something wrong');
+
+            notExistedApiRequest.get('/this is wrong').then((data) => {
+                done('Request should end with error');
+            }).catch((err) => {
+                done();
+            });
+        })
+    });
+
     describe('Working with options', () => {
         it('should send x-token in headers', async () => {
             const result = await testOptionsApi.get(TEST_GET_CUSTOM_HEADERS_URI);

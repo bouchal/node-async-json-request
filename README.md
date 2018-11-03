@@ -2,6 +2,8 @@ Simple sending JSON requests via async/await or promises.
 
 # Async JSON Request
 
+[![Coverage Status](https://coveralls.io/repos/github/bouchal/node-async-json-request/badge.svg?branch=master)](https://coveralls.io/github/bouchal/node-async-json-request?branch=master)
+
 ## Installation
 
 ```
