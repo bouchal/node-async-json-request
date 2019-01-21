@@ -1,5 +1,6 @@
 import JsonRequest from '../src/JsonRequest';
 import mockServerFactory from './mock/mockServer'
+import {Server} from "http";
 
 const TEST_JSON_BASE_URL = 'http://127.0.0.1';
 const TEST_SERVER_PORT = 9999;
@@ -19,19 +20,21 @@ const TEST_PUT_DATA = {
 const TEST_TOKEN = 'testToken';
 
 const testApi = new JsonRequest(TEST_JSON_BASE_URL + ':' + TEST_SERVER_PORT);
+
 const testFullResponseApi = new JsonRequest(TEST_JSON_BASE_URL + ':' + TEST_SERVER_PORT, {}, true);
 const testOptionsApi = new JsonRequest(TEST_JSON_BASE_URL + ':' + TEST_SERVER_PORT, {
     headers: {
         'x-token': TEST_TOKEN
     }
 });
-let mockServer = null;
+
+let mockServer: Server;
 
 describe('Request', function () {
     this.timeout(10000);
 
     before((done) => {
-        mockServerFactory(TEST_SERVER_PORT, (server) => {
+        mockServerFactory(TEST_SERVER_PORT, (server: Server) => {
             mockServer = server;
             done();
         })
@@ -52,11 +55,11 @@ describe('Request', function () {
         });
 
         it('should work with promise', async () => {
-            testApi.get(TEST_GET_JSON_URI).then((result) => {
+            testApi.get(TEST_GET_JSON_URI).then((result: any) => {
                 if (!result.success) {
                     throw Error('Request return wrong data');
                 }
-            }, (err) => {
+            }, (err: string) => {
                 if (err) {
                     throw Error(err);
                 }
@@ -64,7 +67,7 @@ describe('Request', function () {
         });
 
         it('should return full response', async () => {
-            testFullResponseApi.get(TEST_GET_JSON_URI).then((res) => {
+            testFullResponseApi.get(TEST_GET_JSON_URI).then((res: any) => {
                 if (res.statusCode !== 200) {
                     throw Error('Request return wrong status code');
                 }
@@ -73,7 +76,7 @@ describe('Request', function () {
                     throw Error('Request return wrong data');
                 }
 
-            }, (err) => {
+            }, (err: string) => {
                 if (err) {
                     throw Error(err);
                 }
@@ -86,15 +89,15 @@ describe('Request', function () {
         it('should work with POST', async () => {
             const result = await testApi.post(TEST_POST_JSON_URI, null, TEST_POST_DATA);
 
-            if (!result.receivedData.testData == TEST_POST_DATA.testData) {
+            if (!(result.receivedData.testData === TEST_POST_DATA.testData)) {
                 throw Error('Request return wrong data');
             }
         });
 
         it('should work with PUT', async () => {
-            const result = await testApi.put(TEST_PUT_JSON_URI, TEST_PUT_DATA);
+            const result = await testApi.put(TEST_PUT_JSON_URI, null, TEST_PUT_DATA);
 
-            if (!result.receivedData.testPutData == TEST_PUT_DATA.testPutData) {
+            if (!(result.receivedData.testPutData === TEST_PUT_DATA.testPutData)) {
                 throw Error('Request return wrong data');
             }
         });
@@ -133,7 +136,7 @@ describe('Request', function () {
                 throw Error('Request return wrong headers');
             }
         });
-    })
+    });
 
     describe('working with additional extra options for request', async () => {
         it('should send x-token in headers', async () => {
@@ -145,7 +148,7 @@ describe('Request', function () {
                 })
                 .get(TEST_GET_CUSTOM_HEADERS_URI);
 
-            if (!(result.headers['x-token'] === TEST_TOKEN)) {
+            if (result.headers['x-token'] !== TEST_TOKEN) {
                 throw Error('Request return wrong headers');
             }
         });
