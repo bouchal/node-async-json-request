@@ -1,5 +1,6 @@
 .idea
-.babel
+tsconfig.json
 .travis.yml
+coverage
 src
 test
