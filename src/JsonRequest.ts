@@ -17,7 +17,7 @@ export type IJsonRequestAPI = {
     options: IOptionsMethod;
 }
 
-class JsonRequest {
+class JsonRequestDeclaration {
     protected readonly baseUrl: string;
 
     protected readonly defaultRequestOptions: object;
@@ -114,14 +114,14 @@ class JsonRequest {
     }
 }
 
-interface IJsonRequestConstructor {
+interface IJsonRequest {
     new(baseUrl: string, defaultRequestOptions?: object, fullResponse?: boolean): IJsonRequestAPI;
 
     (baseUrl: string, defaultRequestOptions?: object, fullResponse?: boolean): IJsonRequestAPI;
 }
 
-const JsonRequestConstructor: IJsonRequestConstructor = function (baseUrl: string, defaultRequestOptions: object = {}, fullResponse: boolean = false): IJsonRequestAPI {
-    return new JsonRequest(baseUrl, defaultRequestOptions, fullResponse).getProxy();
-} as IJsonRequestConstructor;
+const JsonRequest: IJsonRequest = function (baseUrl: string, defaultRequestOptions: object = {}, fullResponse: boolean = false): IJsonRequestAPI {
+    return new JsonRequestDeclaration(baseUrl, defaultRequestOptions, fullResponse).getProxy();
+} as IJsonRequest;
 
-export default JsonRequestConstructor;
+export default JsonRequest;
