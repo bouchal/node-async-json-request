@@ -22,7 +22,7 @@ const apiRequest = new JsonRequest('https://jsonplaceholder.typicode.com');
 const printData = async () => {
 	const result = await apiRequest.get('/posts/1');
 	
-	console.log(result);
+	console.log(result.body);
 };
 
 printData();
@@ -59,7 +59,7 @@ const apiRequest = new JsonRequest('https://jsonplaceholder.typicode.com', {
 });
 
 const result = apiRequest
-    .options({
+    .wrap({
         headers: {
             'authorization': 'Bearer XYZ'
         }
@@ -69,22 +69,29 @@ const result = apiRequest
 
 All options are deep merged together.
 
-### Returning full response object
+### Typescript
 
-Sometimes you need return full response object for check status code or returned headers.
+If you know schema which return in body, you can use generic types for better suggestions.
 
-For it you can set third parameter of JsonRequest to true.
-
-```javascript
+```typescript
 import JsonRequest from 'async-json-request';
 
-const apiRequest = new JsonRequest('https://jsonplaceholder.typicode.com', {}, true);
+interface IPost {
+    userId: number;
+    id: number;
+    title: string;
+    body: string;
+}
 
-const printStatusCode = async () => {
-	const result = await apiRequest.get('/posts/1');
-	
-	console.log(result.statusCode, result.body);
-};
+const apiRequest = new JsonRequest('https://jsonplaceholder.typicode.com');
 
-printStatusCode();
+const printFirstPostTitle = async (): Promise<void> => {
+    const response = await apiRequest.get<IPost>('/posts/1');
+
+    const responseBody = response.body; // Now body will be suggest you IPost interface.
+    
+    console.log(`Title of first post is: ${responseBody.title}`);
+}
+
+printFirstPostTitle();
 ```
