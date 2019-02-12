@@ -4,15 +4,14 @@ import {CoreOptions} from "request";
 import {Request} from "request";
 import {ResponseAsJSON} from "request";
 import {IncomingMessage} from "http";
-import {Caseless} from "caseless";
 
 
 interface Response<T = any> extends IncomingMessage {
     statusCode: number;
     statusMessage: string;
     request: Request;
-    body: T; // Buffer, string, stream.Readable, or a plain object if `json` was truthy
-    caseless: Caseless; // case-insensitive access to headers
+    body: T;
+    caseless: any;
     toJSON(): ResponseAsJSON;
 
     timingStart?: number;
