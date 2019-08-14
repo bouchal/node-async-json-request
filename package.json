@@ -1,6 +1,6 @@
 {
   "name": "async-json-request",
-  "version": "4.0.1",
+  "version": "4.1.0",
   "description": "Base request methods based on promises for async/await ussage",
   "main": "./dist/index.js",
   "scripts": {
@@ -20,7 +20,9 @@
   },
   "homepage": "https://github.com/bouchal/node-async-json-request#readme",
   "dependencies": {
+    "@types/caseless": "^0.12.1",
     "@types/methods": "^1.1.0",
+    "@types/request": "^2.48.1",
     "deepmerge": "^2.1.1",
     "methods": "^1.1.2",
     "request": "^2.88.0"
@@ -30,7 +32,6 @@
     "@types/express": "^4.16.0",
     "@types/mocha": "^5.2.5",
     "@types/node": "^10.12.18",
-    "@types/request": "^2.48.1",
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "istanbul": "^1.0.0-alpha.2",
