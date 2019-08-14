@@ -1,9 +1,8 @@
 import * as request from "request";
 import * as deepmerge from "deepmerge";
-import {CoreOptions} from "request";
-import {Request} from "request";
-import {ResponseAsJSON} from "request";
+import {Request, ResponseAsJSON, CoreOptions} from "request";
 import {IncomingMessage} from "http";
+import {Caseless} from "caseless";
 
 
 interface Response<T = any> extends IncomingMessage {
@@ -11,7 +10,7 @@ interface Response<T = any> extends IncomingMessage {
     statusMessage: string;
     request: Request;
     body: T;
-    caseless: any;
+    caseless: Caseless;
     toJSON(): ResponseAsJSON;
 
     timingStart?: number;
